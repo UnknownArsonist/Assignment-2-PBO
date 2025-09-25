@@ -46,6 +46,16 @@ problems = [get_problem(fid=id, dimension=100, instance=1, problem_class = Probl
 # Create default logger compatible with IOHanalyzer
 # `root` indicates where the output files are stored.
 # `folder_name` is the name of the folder containing all output. You should compress this folder and upload it to IOHanalyzer
+l = logger.Analyzer(
+    root = "data",
+    folder_name = "run-RandomSearch", 
+    algorithm_name = "random_search", 
+    algorithm_info = "random_search algorithm"
+    )
+for p in problems:
+    p.attach_logger(l)
+    random_search(p, 100000)
+
 
 for alg in algorithm_names:
     for p in problems:
