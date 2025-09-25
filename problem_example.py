@@ -1,5 +1,6 @@
 from ioh import get_problem, ProblemClass
 from ioh import logger
+from GA_Algorithms import get_algorithm
 import sys
 import numpy as np
 
@@ -30,28 +31,27 @@ def random_search(func, budget = None):
     return f_opt, x_opt
 
 # Declaration of problems to be tested.
-om = get_problem(fid = 1, dimension=50, instance=1, problem_class = ProblemClass.PBO)
-lo = get_problem(fid = 2, dimension=50, instance=1, problem_class = ProblemClass.PBO)
-labs = get_problem(fid = 18, dimension=50, instance=1, problem_class = ProblemClass.PBO)
+algorithm_names = ["RLS", "EA"]
+problem_ids = [1, 2, 3, 18, 23, 24, 25]
 
+algorithms = {a : get_algorithm(a) for a in algorithm_names}
+loggers = {a : logger.Analyzer(
+    root = "data",
+    folder_name = "run-" + a, 
+    algorithm_name = a, 
+    algorithm_info = a + " algorithm"
+    ) for a in algorithm_names}
+problems = [get_problem(fid=id, dimension=100, instance=1, problem_class = ProblemClass.PBO) for id in problem_ids]
 
 # Create default logger compatible with IOHanalyzer
 # `root` indicates where the output files are stored.
 # `folder_name` is the name of the folder containing all output. You should compress this folder and upload it to IOHanalyzer
-l = logger.Analyzer(root="data", 
-    folder_name="run", 
-    algorithm_name="random_search", 
-    algorithm_info="test of IOHexperimenter in python")
 
+for alg in algorithm_names:
+    for p in problems:
+        p.attach_logger(loggers[alg])
+        algorithms[alg](p, 100000)
 
-om.attach_logger(l)
-random_search(om)
-
-lo.attach_logger(l)
-random_search(lo)
-
-labs.attach_logger(l)
-random_search(labs)
 
 # This statemenet is necessary in case data is not flushed yet.
 del l
