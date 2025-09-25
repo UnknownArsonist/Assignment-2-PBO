@@ -54,4 +54,5 @@ for alg in algorithm_names:
 
 
 # This statemenet is necessary in case data is not flushed yet.
-del l
+for alg in algorithm_names:
+    del loggers[alg]
