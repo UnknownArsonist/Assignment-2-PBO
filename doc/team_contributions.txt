@@ -1,6 +1,17 @@
 a1864331 - Harry:
     - Exercise 4
 
-a1800294 - Zac
+a1800294 - Zachary
     - Exercise 1
-    - Exercise 2
+    - Exercise 2 (first 2 dot points (first))
+
+a1884969 - Jan Philippe (JP) Banquicio
+    - Exercise 3
+
+a1837593 - Xujia Zhang
+    - Exercise 5
+
+a1785401 - Mingyang Zhang
+    - Exercise 2 (final 2 dot points (second))
+
+a....... - orange circle guy
