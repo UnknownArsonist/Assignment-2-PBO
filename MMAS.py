@@ -21,7 +21,7 @@ def update_pheromones(pheromones, best_solution, evaporation_rate, pheromone_min
     """Updates pheromone values in MMAS (reinforces edges that represent the best-so-far solution)"""
     pheromones *= (1.0 - evaporation_rate)                                             # evaporate
     pheromones[np.arange(len(best_solution)), best_solution] += evaporation_rate       # deposit on chosen edges
-    np.clip(pheromones, pheromone_min, pheromone_max, out=pheromones)                             # min and max bounds
+    np.clip(pheromones, pheromone_min, pheromone_max, out=pheromones)                  # min and max bounds
 
 
 def mmas(problem, runs, budget, evaporation_rate, pheromone_min, pheromone_max, seed, strict=False):
@@ -80,31 +80,51 @@ def run_mmas(problem, **kwargs):
 def run_mmas_star(problem, **kwargs):
     return mmas(problem, strict=True, **kwargs)   # MMAS*
 
+class RunMeta: pass
+meta = RunMeta()
+meta.evaporation_rate = None
+
 
 def run():
     n = 100
-    reps = 10
+    runs = 10
     eval_budget = 100000                                             # budget from exercise 2
     evaporation_rate_values = [1.0, 1.0 / math.sqrt(n), 1.0 / n]     # evap rates 1, 1/sqrt(n), and 1/n (from exercise 4)
     fids = [1, 2, 3, 18, 23, 24, 25]                                 # PBO problems
     instance = 1
+    
+    class RunMeta:
+        pass
+    runmeta = RunMeta()
+    runmeta.evaporation_rate = None
 
-    base_logger = logger.Analyzer(
+    logger_mmas = logger.Analyzer(
         root="ex4_data",
-        folder_name="MMAS_vs_MMASstar",
-        algorithm_name="MMAS-MMASstar",
+        folder_name="MMAS_only",
+        algorithm_name="MMAS",
+        algorithm_info=f"n={n}; 10 runs, budget={eval_budget}",
     )
+
+    logger_mmasstar = logger.Analyzer(
+        root="ex4_data",
+        folder_name="MMASstar_only",
+        algorithm_name="MMAS*",
+        algorithm_info=f"n={n}; 10 runs, budget={eval_budget}",
+    )
+
+    logger_mmas.watch(runmeta, "evaporation_rate")
+    logger_mmasstar.watch(runmeta, "evaporation_rate")
 
     for fid in fids:
         problem = get_problem(fid=fid, dimension=n, instance=instance, problem_class=ProblemClass.PBO)
 
         for evaporation_rate in evaporation_rate_values:
-            problem.attach_logger(base_logger)
-
+            runmeta.evaporation_rate = evaporation_rate
             # MMAS
-            print(f"[fid={fid}] MMAS, evaporation_rate={evaporation_rate}")
+            problem.attach_logger(logger_mmas)
+            print(f"[fid={fid}] MMAS, evap rate={evaporation_rate}")
             run_mmas(problem,
-                     runs=reps,
+                     runs=runs,
                      budget=eval_budget,
                      evaporation_rate=evaporation_rate,
                      pheromone_min=1e-3,
@@ -112,11 +132,12 @@ def run():
                      seed=99)
             problem.reset()
 
-            # MMAS*
-            print(f"[fid={fid}] MMAS*, evaporation_rate={evaporation_rate}")
-            problem.attach_logger(base_logger) 
+            runmeta.evaporation_rate = evaporation_rate
+            # MMASstar
+            problem.attach_logger(logger_mmasstar)
+            print(f"[fid={fid}] MMAS*, evap rate={evaporation_rate}")
             run_mmas_star(problem,
-                          runs=reps,
+                          runs=runs,
                           budget=eval_budget,
                           evaporation_rate=evaporation_rate,
                           pheromone_min=1e-3,
@@ -124,7 +145,8 @@ def run():
                           seed=99)
             problem.reset()
 
-    base_logger.close()
+    logger_mmas.close()
+    logger_mmasstar.close()
     print("Finished!")
 
 if __name__ == "__main__":
