@@ -3,7 +3,11 @@ a1864331 - Harry:
 
 a1800294 - Zachary
     - Exercise 1
-    - Exercise 2 (first 2 dot points (first))
+        Created GitHub Project and ran the corresponding functions, uploaded the data to IOHanalyzer and produced 3 fixed-budget plots in Exercise 1 plots.pdf
+    - Exercise 2
+        Implemented algorithms RLS and (1+1) EA as functions.
+        Ran RLS and (1+1) EA on the listed problems with problem size n = 100 for 100000 iterations.
+        Produced a fixed-budget plot for each function showing the mean and standard deviation for the three algorithms
 
 a1884969 - Jan Philippe (JP) Banquicio
     - Exercise 3
@@ -14,4 +18,9 @@ a1837593 - Xujia Zhang
 a1785401 - Mingyang Zhang
     - Exercise 2 (final 2 dot points (second))
 
+a1894858 - Parth Goel
+    - Exercise 2
+        
+
 a....... - orange circle guy
+    - 
