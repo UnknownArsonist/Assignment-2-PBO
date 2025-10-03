@@ -1,5 +1,4 @@
 from ioh import get_problem, ProblemClass, logger
-import sys
 import numpy as np
 import math
 
@@ -92,61 +91,73 @@ def run():
     evaporation_rate_values = [1.0, 1.0 / math.sqrt(n), 1.0 / n]     # evap rates 1, 1/sqrt(n), and 1/n (from exercise 4)
     fids = [1, 2, 3, 18, 23, 24, 25]                                 # PBO problems
     instance = 1
-    
+
     class RunMeta:
         pass
     runmeta = RunMeta()
     runmeta.evaporation_rate = None
 
-    logger_mmas = logger.Analyzer(
-        root="ex4_data",
-        folder_name="MMAS_only",
-        algorithm_name="MMAS",
-        algorithm_info=f"n={n}; 10 runs, budget={eval_budget}",
-    )
+    # helper to label folders for each evaporation rate
+    def rate_label(rate: float) -> str:
+        s = f"{rate:.10g}"  # trim
+        return s.replace(".", "_")
 
-    logger_mmasstar = logger.Analyzer(
-        root="ex4_data",
-        folder_name="MMASstar_only",
-        algorithm_name="MMAS*",
-        algorithm_info=f"n={n}; 10 runs, budget={eval_budget}",
-    )
+    # iterate by evaporation rate first so each rate gets its own output folder for each algorithm
+    for evaporation_rate in evaporation_rate_values:
+        runmeta.evaporation_rate = evaporation_rate
+        label = rate_label(evaporation_rate)
 
-    logger_mmas.watch(runmeta, "evaporation_rate")
-    logger_mmasstar.watch(runmeta, "evaporation_rate")
+        logger_mmas = logger.Analyzer(
+            root="ex4_data",
+            folder_name=f"MMAS_evap_rate_{label}",
+            algorithm_name="MMAS",
+            algorithm_info=f"n={n}; {runs} runs, budget={eval_budget}; evaporation_rate={evaporation_rate}",
+        )
+        logger_mmasstar = logger.Analyzer(
+            root="ex4_data",
+            folder_name=f"MMASstar_evap_{label}",
+            algorithm_name="MMAS*",
+            algorithm_info=f"n={n}; {runs} runs, budget={eval_budget}; evaporation_rate={evaporation_rate}",
+        )
 
-    for fid in fids:
-        problem = get_problem(fid=fid, dimension=n, instance=instance, problem_class=ProblemClass.PBO)
+        # record the evap rate in the metadata
+        logger_mmas.watch(runmeta, "evaporation_rate")
+        logger_mmasstar.watch(runmeta, "evaporation_rate")
 
-        for evaporation_rate in evaporation_rate_values:
-            runmeta.evaporation_rate = evaporation_rate
-            # MMAS
+        for fid in fids:
+            problem = get_problem(fid=fid, dimension=n, instance=instance, problem_class=ProblemClass.PBO)
+
+            # --- MMAS ---
             problem.attach_logger(logger_mmas)
             print(f"[fid={fid}] MMAS, evap rate={evaporation_rate}")
-            run_mmas(problem,
-                     runs=runs,
-                     budget=eval_budget,
-                     evaporation_rate=evaporation_rate,
-                     pheromone_min=1e-3,
-                     pheromone_max=1.0,
-                     seed=99)
+            run_mmas(
+                problem,
+                runs=runs,
+                budget=eval_budget,
+                evaporation_rate=evaporation_rate,
+                pheromone_min=1e-3,
+                pheromone_max=1.0,
+                seed=99,
+            )
             problem.reset()
 
-            runmeta.evaporation_rate = evaporation_rate
-            # MMASstar
+            # --- MMAS* ---
             problem.attach_logger(logger_mmasstar)
             print(f"[fid={fid}] MMAS*, evap rate={evaporation_rate}")
-            run_mmas_star(problem,
-                          runs=runs,
-                          budget=eval_budget,
-                          evaporation_rate=evaporation_rate,
-                          pheromone_min=1e-3,
-                          pheromone_max=1.0,
-                          seed=99)
+            run_mmas_star(
+                problem,
+                runs=runs,
+                budget=eval_budget,
+                evaporation_rate=evaporation_rate,
+                pheromone_min=1e-3,
+                pheromone_max=1.0,
+                seed=99,
+            )
             problem.reset()
 
-    logger_mmas.close()
-    logger_mmasstar.close()
+        logger_mmas.close()
+        logger_mmasstar.close()
+
     print("Finished!")
 
 if __name__ == "__main__":
