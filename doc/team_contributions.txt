@@ -1,5 +1,8 @@
 a1864331 - Harry:
     - Exercise 4
+        Completed implementations of the MMAS and MMAS* algorithms, ran ten times on 
+        the same problems used in exercise 2 with a budget of 100000 and n = 100 (also as per exercise 2). 
+        Created plots for each evaporation rate (1, 0.1, 0.01) which compare the convergences of MMAS and MMAS*
 
 a1800294 - Zachary
     - Exercise 1
