@@ -23,8 +23,8 @@ def ACO(func, budget=None, num_ants=20, rho=0.1,
 
     for r in range(10):
         tau=np.full(n, tau_init, dtype=float)
-        best_f = -np.inf
-        best_x = None
+        run_best_f  = -np.inf
+        run_best_x = None
         evals = 0
 
         while evals < budget:

@@ -1,6 +1,6 @@
 import ioh
 import pandas as pd
-from ACO_Algorithms import get_algorithm
+from ACO import get_algorithm
 
 # Get ACO function
 ACO = get_algorithm("ACO")
