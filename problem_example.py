@@ -30,8 +30,10 @@ def random_search(func, budget = None):
         func.reset()
     return f_opt, x_opt
 
-# Declaration of problems to be tested.
-algorithm_names = ["RLS", "EA"]
+# available algorithms
+algorithm_names = ["RLS", "EA", "MMAS", "MMAS*"] # manually delete others until only desired alg remains
+
+# problems to be tested
 problem_ids = [1, 2, 3, 18, 23, 24, 25]
 
 algorithms = {a : get_algorithm(a) for a in algorithm_names}
