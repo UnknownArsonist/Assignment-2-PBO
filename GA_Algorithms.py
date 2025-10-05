@@ -37,22 +37,36 @@ def RLS(func, budget = None):
 def EA(func, budget = None):
     size = func.meta_data.n_variables
     if budget is None:
-        budget = int(func.meta_data.n_variables * func.meta_data.n_variables * 50)
+        budget = int(size * size * 50)
+    
 
     optimum = func.optimum.y
+    
     for r in range(10):
         f_opt = sys.float_info.min
         x_opt = None
+        
         x = np.random.randint(2, size = func.meta_data.n_variables)
+        f_x = func(x)
+
         for i in range(budget):
-            f = func(x)
-            if f >= f_opt:
-                f_opt = f
-                x_opt = x
-                x = x_opt
+            x_prime = np.copy(x)
+            mutation = np.random.rand(size) < (1 / size)
+            x_prime[mutation] = 1 - x_prime[mutation]
+            
+            f_prime = func(x_prime)
+            
+            if f_prime >= f_x:
+                x = x_prime
+                f_x = f_prime
+                
+            if f_x > f_opt:
+                f_opt = f_x
+                x_opt = np.copy(x)
+                
             if f_opt >= optimum:
                 break
-            x = np.array([(a if np.random.rand() > (1/size) else (1 if a == 0 else 0)) for a in x])
+            
         func.reset()
     return f_opt, x_opt
 
@@ -100,3 +114,5 @@ def MMASSTAR(func, budget=None, *, runs=10, evaporation_rate=None,
         seed=seed,
         strict=True
     )
+
+
