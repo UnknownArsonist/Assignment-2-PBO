@@ -226,12 +226,7 @@ def run_experiment(
     algorithm_name: str = "UniformGA",
     output_directory: Optional[str] = None,
 ) -> None:
-    """
-    Fixed IOH usage:
-      - No 'experiment_name' kwarg to Analyzer (use algorithm_info instead).
-      - Create ONE Analyzer for the whole run (prevents ex3_data, ex3_data-1, ... proliferation).
-      - Detach logger with no arguments; close analyzer once at the end.
-    """
+    
     if ioh is None:
         raise RuntimeError("The 'ioh' package is not available in this environment. Install with 'pip install ioh'.")
 
