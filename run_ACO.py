@@ -13,26 +13,7 @@ N_FOR = {1:100, 2:100, 3:100, 18:100, 4:100, 24:400, 25:400}
 
 BUDGET = 100_000
 RUNS = 10
-"""
-# Collect results
-records = []
 
-for fid in functions:
-    # Load problem from IOHexperimenter
-    problem = ioh.get_problem(fid, dimension=dimension, instance=1)
-
-    # Run ACO (internally already does 10 runs)
-    f_best, x_best = ACO(problem, budget=budget)
-
-    # Save record
-    records.append({
-        "Function": f"F{fid}",
-        "BestFitness": f_best,
-        "BestSolution": "".join(map(str, x_best))
-    })
-
-    print(f"[Done] Function F{fid}, best fitness = {f_best}")
-"""
 rows=[]
 for fid in FUNCTIONS:
     n = N_FOR[fid]

@@ -23,6 +23,11 @@ a1785401 - Mingyang Zhang
 
 a1894858 - Parth Goel
     - Exercise 2
+
+a1819316 - Xiang li 
+   -write code for aco 
+   -draw plot 
+   -write e5 report
         
 
 a....... - orange circle guy
