@@ -4,6 +4,8 @@ a1864331 - Harry:
         the same problems used in exercise 2 with a budget of 100000 and n = 100 (also as per exercise 2). 
         Created plots for each evaporation rate (1, 0.1, 0.01) which compare the convergences of MMAS and MMAS*
 
+    - Cleaned up and organised repo for submission. 
+
 a1800294 - Zachary
     - Exercise 1
         Created GitHub Project and ran the corresponding functions, uploaded the data to IOHanalyzer and produced 3 fixed-budget plots in Exercise 1 plots.pdf

@@ -1,5 +1,5 @@
 from ioh import get_problem, ProblemClass, logger
-from GA_Algorithms import get_algorithm
+from final.code.GA_Algorithms import get_algorithm
 import sys
 import numpy as np
 
@@ -35,7 +35,7 @@ PROBLEM_IDS = [1, 2, 3, 18, 23, 24, 25]
 N = 100
 BUDGET = 100000 
 FOLDER = f"run-{ALGORITHM}"
-ROOT = "TEST"
+ROOT = "DATA"
 
 def main():
     print(f"Algorithm: {ALGORITHM}")

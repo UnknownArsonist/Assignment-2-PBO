@@ -2,10 +2,7 @@ import math
 import ioh
 import pandas as pd
 import numpy as np
-from ACO import get_algorithm
-
-# Get ACO function
-ACO = get_algorithm("ACO")
+from final.code.ACO import ACO
 
 # Functions from Exercise 2
 FUNCTIONS = [1, 2, 3, 18, 4, 24, 25] #Using F4 instead since F23 is buggy at moment

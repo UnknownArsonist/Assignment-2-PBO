@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-from MMAS import mmas as _mmas
+from final.code.MMAS import mmas as _mmas
 import math
 
 def get_algorithm(name):

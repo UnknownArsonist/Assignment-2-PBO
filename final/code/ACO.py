@@ -1,10 +1,5 @@
 import numpy as np
 
-def get_algorithm(name:str):
-    if name.upper().strip() == "ACO":
-        return ACO
-    raise ValueError("Algorithm not recognized"+repr(name))
-
 def _construct_solutions(tau: np.ndarray, num_ants: int, rng: np.random.Generator):
     # tau[i] \in [0,1] is the prob of setting bit i = 1
     n = tau.shape[0]
