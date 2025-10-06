@@ -27,12 +27,12 @@ a1785401 - Mingyang Zhang
 
 a1894858 - Parth Goel
     - Exercise 2
+        Wrote the summary of the results and observations for each function. 
+    - Exercise 4
+        Compared the results from Exercise 4 with the plots from Exercise 2, and provided an analysis of the results.    
+     
 
-a1819316 - Xiang li 
-   -write code for aco 
-   -draw plot 
-   -write e5 report
-        
-
-a....... - Xiang Li
-    - 
+a1819316 - Xiang li  
+   -write code for aco  
+   -draw plot  
+   -write e5 report 

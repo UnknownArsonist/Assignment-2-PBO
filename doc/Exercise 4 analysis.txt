@@ -1,0 +1,35 @@
+F1 – OneMax 
+
+Both MMAS and MMAS* achieved near-optimal results similar to EA and RLS. For ρ = 1, convergence was fastest, but fitness fluctuated slightly before stabilising. When ρ = 0.1 or 0.01, the curves were smoother, showing slower but steadier growth. MMAS* generally reached slightly higher final fitness than MMAS, reflecting the benefit of its stricter pheromone update bounds. The high-evaporation (ρ = 1) variant exploited aggressively but risked premature convergence, while smaller ρ values preserved exploration. 
+
+F2 – Leading Ones 
+
+For this sequential problem, MMAS* performed best overall. The pheromone reinforcement mechanism encouraged gradual fixation of correct bits, resembling the step-by-step progress seen in EA. ρ = 0.1 provided the most stable growth; ρ = 1 was noisy and sometimes overshot, and ρ = 0.01 was very slow early on. Both ACO variants eventually matched EA’s final mean f(x), confirming that ACO can exploit dependencies effectively once good bit patterns emerge. 
+
+F3 – Binary Value 
+
+MMAS and MMAS* both tracked the EA curve closely, but MMAS* again showed smoother convergence and slightly higher stability. For ρ = 1, both algorithms made fast early gains but plateaued prematurely. At ρ = 0.1, performance balanced exploration and exploitation well. The weighted bit significance of F3 favoured algorithms with gradual pheromone adaptation; MMAS* with ρ = 0.1 offered the best compromise between speed and accuracy. 
+
+F18 – LABS (Low Autocorrelation Binary Sequence) 
+
+This was among the hardest functions. All algorithms progressed slowly, with very little separation between MMAS and MMAS*. At ρ = 0.01, convergence was stable but extremely gradual. ρ = 1 led to large oscillations and early stagnation. ACO struggled to escape poor local minima in this rugged landscape, mirroring the plateauing seen earlier in EA and RLS. Lower ρ values helped prevent total stagnation but did not dramatically improve fitness. 
+
+F23 – Deceptive Trap Function 
+
+Deceptive traps exposed clear differences between the algorithms. MMAS* outperformed MMAS across all ρ values, achieving higher mean fitness and smaller variance. With ρ = 1, the pheromone bias toward early partial solutions led to premature convergence; with ρ = 0.1 or 0.01, exploration was maintained longer, allowing escape from traps. The elitist but bounded update of MMAS* reduced the risk of stagnation. Its curve resembled the EA trajectory but with greater stability in the later stages. 
+
+F24 – Jump Function 
+Both MMAS and MMAS* showed gradual improvement and moderate variance. At ρ = 1, convergence was quick but unstable; ρ = 0.1 and 0.01 yielded slower yet more reliable progress. Neither algorithm reached the highest plateau achieved by EA, but MMAS* (ρ = 0.1) came close. The Jump gap made pheromone updates volatile—large ρ values reinforced suboptimal paths, while smaller ones-maintained diversity longer. 
+
+F25 – NK Landscape 
+As expected, F25 proved the most difficult. Both MMAS and MMAS* showed very flat curves, improving only slightly throughout the run. Lower ρ (0.01) produced the smoothest but slowest progress, suggesting a trade-off between steady learning and exploration speed. The highly epistatic structure limited ACO’s advantage; even so, MMAS* consistently achieved marginally higher final fitness than MMAS and outperformed Random Search, demonstrating resilience under rugged conditions. 
+
+Overall Summary 
+
+The results demonstrate that MMAS* consistently outperforms MMAS in both convergence stability and final fitness. Moderate evaporation rates (ρ ≈ 0.1) strike the best balance between rapid adaptation and sustained exploration. 
+
+Compared to the algorithms from Exercise 2, the ACO approaches are slightly slower on easy unimodal tasks but competitive and more robust on deceptive or multimodal landscapes. This highlights the strength of pheromone-based collective learning in preserving diversity and preventing early stagnation, especially as problem ruggedness increases. 
+
+In essence, MMAS* with a moderate ρ value emerges as a well-balanced optimiser, matching EA and RLS on simpler functions and outperforming them on more complex, trap-ridden ones 
+
+ 

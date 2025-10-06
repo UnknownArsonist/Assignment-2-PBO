@@ -1,0 +1,49 @@
+Function F1 – OneMax 
+
+All three algorithms showed strong, steady improvement on F1, but RLS and (1+1) EA clearly converged faster than Random Search. The fitness rose sharply within the first 20 000 evaluations and then plateaued near the maximum value (≈ 70). RLS reached the plateau slightly earlier, while EA achieved a marginally higher final mean value with lower variance. Random Search improved at first but flattened early, showing much larger variance between runs. 
+Observation: Both RLS and EA handled this simple unimodal landscape efficiently, confirming the O(n log n) runtime behaviour expected for OneMax. 
+
+Function F2 – Leading Ones 
+
+On F2, which rewards consecutive leading 1-bits, RLS and (1+1) EA again outperformed Random Search by a large margin. The mean fitness for EA rose rapidly before 40 000 evaluations and then stabilised around 3600. RLS followed a similar curve but remained slightly lower on average. Random Search displayed a slower increase and much wider standard-deviation bands, indicating inconsistent success in discovering long runs of 1s. 
+Observation: EA’s use of bit-wise mutation allowed more gradual progress over the sequential dependency structure of Leading Ones, while Random Search rarely improved once partial prefixes were found. 
+
+Function F3 – Binary Value 
+
+The Binary Value function produces steep fitness gradients that depend on bit significance. Here, RLS and EA both converged to similar best-so-far values (around −0.42), whereas Random Search lagged only slightly but remained more variable. EA showed faster early improvement within 10 000 evaluations, while RLS needed more iterations to approach the same level. 
+Observation: Because this function penalises errors in higher-order bits heavily, the small mutation step size in EA proved effective in correcting them incrementally, matching theoretical predictions of O(n log n) behaviour for this class of problems. 
+
+
+Function F18 – LABS (Low Autocorrelation Binary Sequence) 
+
+This problem is much harder and multimodal. All three algorithms exhibited slower progress and larger uncertainty. EA showed steady yet modest improvement, reaching a best-so-far ≈ 11. RLS achieved comparable final fitness but progressed more gradually. Random Search started similarly but quickly plateaued with higher variance. 
+Observation: The rugged landscape of F18 reduced the effectiveness of local mutation-based search, causing both EA and RLS to get trapped in local minima. Nevertheless, their average performance remained clearly above Random Search, illustrating the benefit of iterative exploitation even under noise and plateaus. 
+
+Function F23 – Deceptive Trap Function 
+
+For F23, all algorithms improved quickly early on, but EA and RLS again achieved superior final fitness (around −700) compared to Random Search. EA displayed a smoother convergence curve and smaller variance, indicating more reliable exploitation of promising regions. RLS followed closely, while Random Search oscillated and rarely escaped deceptive regions. 
+Observation: The deceptive nature of F23 demonstrates how random exploration alone struggles, while mutation-driven local improvement can overcome partial deception through gradual bit flips. 
+
+Function F24 – Jump Function 
+
+The Jump function contains a fitness gap that requires escaping local optima. EA and RLS both achieved best-so-far values near 14, whereas Random Search fluctuated widely with a slightly higher mean early on but plateaued lower in later stages. EA exhibited faster initial convergence and slightly smaller standard deviation. 
+Observation: Both EA and RLS were capable of crossing small fitness valleys within 100 000 evaluations, though their progress slowed once the jump region was reached, suggesting that fixed mutation rates limited exploration. 
+
+Function F25 – NK-Landscape (n = 100) 
+
+F25 was the most complex and stochastic of the set. Here all algorithms showed very slow improvement. EA and RLS converged to similar best-so-far values around 2.3, while Random Search trailed slightly below 2.2 with broader variance. The curves for EA and RLS rose steeply early on and then flattened, indicating quick exploitation but limited global discovery. 
+Observation: The NK-landscape’s high epistasis creates numerous local optima, and with n = 100 the mutation-based methods could not reliably escape them. Nonetheless, both EA and RLS consistently outperformed Random Search through incremental learning of better bit configurations. 
+
+Overall Trends and Insights 
+
+Across all seven benchmark functions: 
+
+(1+1) EA consistently achieved the best or near-best mean fitness, showing strong early improvements and lower variance, particularly on structured problems like F1 and F2. 
+RLS performed very similarly to EA but often required more evaluations to reach equivalent performance, reflecting its stricter single-bit mutation approach. 
+Random Search was weakest overall, typically plateauing early with high variance, highlighting the value of iterative feedback in evolutionary search. 
+The differences between EA and RLS narrowed on harder multimodal functions (F18, F23, F25), where both encountered local-optimum traps. 
+The overall patterns align well with theoretical expectations: linear-time convergence for unimodal functions, logarithmic slowdown on Leading Ones and Binary Value, and significantly reduced progress on deceptive or rugged landscapes. 
+
+In summary 
+
+The experimental results demonstrate that evolutionary algorithms leverage feedback-driven refinement to substantially outperform uninformed search, particularly on structured or moderately complex landscapes. While EA offered the most stable and rapid convergence overall, RLS remained competitive and more predictable. Random Search provided a useful baseline, emphasising how even simple evolutionary mechanisms dramatically improve optimisation efficiency in pseudo-boolean settings.  
