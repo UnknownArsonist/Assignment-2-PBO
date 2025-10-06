@@ -1,34 +1,6 @@
 from ioh import get_problem, ProblemClass, logger
-from final.code.GA_Algorithms import get_algorithm
+from GA_Algorithms import get_algorithm
 import sys
-import numpy as np
-
-# Please replace this `random search` by your `genetic algorithm`.
-def random_search(func, budget = None):
-    # budget of each run: 50n^2
-    if budget is None:
-        budget = int(func.meta_data.n_variables * func.meta_data.n_variables * 50)
-
-    if func.meta_data.problem_id == 18 and func.meta_data.n_variables == 32:
-        optimum = 8
-    else:
-        optimum = func.optimum.y
-    print(optimum)
-    # 10 independent runs for each algorithm on each problem.
-    for r in range(10):
-        f_opt = sys.float_info.min
-        x_opt = None
-        for i in range(budget):
-            x = np.random.randint(2, size = func.meta_data.n_variables)
-            f = func(x)
-            if f > f_opt:
-                f_opt = f
-                x_opt = x
-            if f_opt >= optimum:
-                break
-        func.reset()
-    return f_opt, x_opt
-
 
 ALGORITHM = sys.argv[1]
 PROBLEM_IDS = [1, 2, 3, 18, 23, 24, 25]
@@ -43,7 +15,7 @@ def main():
     print(f"n: {N}")
     print(f"Output: {ROOT}/{FOLDER}")
 
-    alg_fn = get_algorithm(ALGORITHM) # RLS, EA, MMAS, or MMAS*
+    alg_fn = get_algorithm(ALGORITHM) # rand, RLS, EA, MMAS, or MMAS*
 
     alg_logger = logger.Analyzer(
         root=ROOT,

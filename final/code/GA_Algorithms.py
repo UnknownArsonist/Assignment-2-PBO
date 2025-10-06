@@ -1,6 +1,6 @@
 import sys
 import numpy as np
-from final.code.MMAS import mmas as _mmas
+from MMAS import mmas as _mmas
 import math
 
 def get_algorithm(name):
@@ -10,7 +10,39 @@ def get_algorithm(name):
         return MMAS
     if name in ("MMAS*", "MMASSTAR", "MMAS_star"):
         return MMASSTAR
-    return RLS
+    if name == "rand":
+        return random_search
+    if name == "RLS":
+        return RLS
+    return
+
+# Please replace this `random search` by your `genetic algorithm`.
+# *ORIGINALLY PROVIDED IN problem_example.py*
+def random_search(func, budget = None):
+    # budget of each run: 50n^2
+    if budget is None:
+        budget = int(func.meta_data.n_variables * func.meta_data.n_variables * 50)
+
+    if func.meta_data.problem_id == 18 and func.meta_data.n_variables == 32:
+        optimum = 8
+    else:
+        optimum = func.optimum.y
+    print(optimum)
+    # 10 independent runs for each algorithm on each problem.
+    for r in range(10):
+        f_opt = sys.float_info.min
+        x_opt = None
+        for i in range(budget):
+            x = np.random.randint(2, size = func.meta_data.n_variables)
+            f = func(x)
+            if f > f_opt:
+                f_opt = f
+                x_opt = x
+            if f_opt >= optimum:
+                break
+        func.reset()
+    return f_opt, x_opt
+
 
 def RLS(func, budget = None):
     if budget is None:

@@ -215,7 +215,7 @@ def run_experiment(
     dim: int = 100,
     reps: int = 10,
     budget: int = 100_000,
-    seed: int = 42,
+    seed: int = 99,
     mu: int = 20,
     lam: int = 20,
     pc: float = 0.9,
@@ -241,7 +241,7 @@ def run_experiment(
     analyzer = ioh.logger.Analyzer(
         algorithm_name=algorithm_name,
         algorithm_info=experiment_name,            # store the experiment name as metadata
-        folder_name=output_directory or "ioh_data" # single folder instead of auto-incrementing
+        folder_name=output_directory or "ex3_data" # single folder instead of auto-incrementing
     )
 
     try:
@@ -289,14 +289,14 @@ if __name__ == "__main__":
     parser.add_argument("--dim", type=int, default=100)
     parser.add_argument("--reps", type=int, default=10)
     parser.add_argument("--budget", type=int, default=100_000)
-    parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--seed", type=int, default=99)
     parser.add_argument("--mu", type=int, default=20)
     parser.add_argument("--lam", type=int, default=20)
     parser.add_argument("--pc", type=float, default=0.9)
     parser.add_argument("--pm", type=float, default=None)
     parser.add_argument("--stall_window", type=int, default=200)
     parser.add_argument("--no_adaptive", action="store_true", help="Disable adaptive mutation bump on stall")
-    parser.add_argument("--outdir", type=str, default=None, help="Output directory for IOH Analyzer logs (defaults to 'ioh_data')")
+    parser.add_argument("--outdir", type=str, default=None, help="Output directory for IOH Analyzer logs (defaults to 'ex3_data')")
     args = parser.parse_args()
 
     run_experiment(
