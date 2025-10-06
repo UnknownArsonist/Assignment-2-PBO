@@ -17,6 +17,10 @@ a1884969 - Jan Philippe (JP) Banquicio
 
 a1837593 - Xujia Zhang
     - Exercise 5
+	The load and execute for run_ACO.py. Used F4 instead of F23 in exsersise2 since F23 is buggy at moment.
+	The compare function for ACO and MMAS and MMAS*.
+	A function that saves the output from run_ACO.py and run_compare.py  
+	
 
 a1785401 - Mingyang Zhang
     - Exercise 2 (final 2 dot points (second))
@@ -30,5 +34,5 @@ a1819316 - Xiang li
    -write e5 report
         
 
-a....... - orange circle guy
+a....... - Xiang Li
     - 
